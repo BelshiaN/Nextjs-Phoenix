@@ -1,15 +1,23 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google"; 
+import Dashboard from "./dashboard";
+import ReviewTable from "./latestreviews";
+import Sidebar from "./sidebar";
+import Navbar from "./page";
 import "./globals.css";
+// import TopRegions from "./topregions";
+import LowerDashboard from "./lowerchart";
+import Footer from "./footer";
+
 
 const geistSans = Geist({
-  variable: "--font-geist-sans",
   subsets: ["latin"],
+  variable: "--font-geist-sans",
 });
 
 const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
   subsets: ["latin"],
+  variable: "--font-geist-mono",
 });
 
 export const metadata: Metadata = {
@@ -19,15 +27,26 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+       
+        <div className="fixed top-0 left-0 w-full z-50">
+          <Navbar />
+        </div>
+
+      
+        <div className="flex pt-16">
+          <Sidebar />
+          <main className="ml-64 w-full">
+            <Dashboard />
+            <ReviewTable />
+            {/* <TopRegions /> */}
+            <LowerDashboard />
+            <Footer />
+          </main>
+        </div>
       </body>
     </html>
   );
